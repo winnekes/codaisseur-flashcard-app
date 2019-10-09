@@ -18,19 +18,18 @@ main h1 {
 }
 
 .card {
-    width: 60%;
     min-height: 300px;
 
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-direction: row;
 
     margin: 2rem auto;
     
     cursor: pointer;
     
+    text-align: center;
     color: white;
     font-size: 1.5rem;
 
@@ -39,7 +38,8 @@ main h1 {
     perspective: 30px;
 }
 
-.card .question em {
+.card em {
+    font-style: normal;
     font-weight: bold;
     color: #660029;
 }
@@ -50,12 +50,12 @@ main h1 {
 
 .card__face {
     position: absolute;
+    width: 400px;
     min-height: 150px;
+    padding: 2rem;
+    border-radius: 3rem;
     display: flex;
     align-items: center;
-    padding: 2rem;
-
-    border-radius: 3rem;
 
     text-align: center;
     font-weight: bold;
