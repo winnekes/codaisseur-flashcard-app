@@ -2,7 +2,7 @@ body {
     background: #f2f2f2;
     
     font-family: 'Hepta Slab', serif;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 main {
@@ -16,8 +16,12 @@ main {
 main h1 {
     text-decoration: underline;
 }
+main p {
+    color: darkslategray;
+}
 
-.button {
+button {
+    margin: 0 10px;
     padding: 1.5rem;
 
     border-radius: 10px;
@@ -25,28 +29,39 @@ main h1 {
 
     background: #ff9933;
 
+    text-decoration: none;
+    outline: none;
     font-size: 1rem;
+    font-weight: bold;
     color: white;
 }
-.button:hover {
-    border: 0;
+button:hover {
     background: #e67300;
 }
-.button:active {
-    border: 0;
+
+button:active {
     box-shadow: 0 5px #666;
     transform: translateY(4px);
 }
 
+.navigation button {
+    font-size: .8rem;
+    background-color: blue;
+}
+
+.navigation button:hover {
+    background: purple;
+}
+
 .card {
-    min-height: 300px;
+    min-height: 400px;
 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
 
-    margin: 2rem auto;
+    margin: 2rem auto 0 auto;
     
     cursor: pointer;
     
@@ -72,12 +87,12 @@ main h1 {
 .card__face {
     position: absolute;
     width: 400px;
-    min-height: 150px;
+    min-height: 200px;
     padding: 2rem;
-    border-radius: 3rem;
+    border-radius: 0rem;
     display: flex;
+    flex-direction: column;
     align-items: center;
-
     text-align: center;
     font-weight: bold;
 
@@ -86,10 +101,18 @@ main h1 {
 
 .card__face--front {
     background: #e6005c;
+    box-shadow: 5px 5px lightskyblue;
     
 }
 
 .card__face--back {
-    background: lightgreen;
+    background: green;
+    box-shadow: 5px 5px lightpink;
     transform: rotateY(180deg);
+}
+
+.card h3 {
+    text-decoration: underline;
+    font-size: 1.5rem;
+    color: blanchedalmond;
 }

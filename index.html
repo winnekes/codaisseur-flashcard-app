@@ -10,24 +10,32 @@
     <title>Test yo self!</title>
 </head>
 
-<body>
+<body onload="displayRandomQuestion();">
     <main>
         <h1>Test yo self!</h1>
+        <p>Test your knowledge with this awesome flashcard app!</p>
+        <h3>Categories</h3>
+        <section id="category-list" class="navigation">
+            <button id="cat-all" onclick="filterCategory()">All topics</button>
+        </section>
         <div class="card">
             <div class="card__face card__face--front">
+                <h3>Question</h3>
                 <span id="question"></span>
             </div>
             <div class="card__face card__face--back">
+                <h3>Answer</h3> 
                 <span id="answer"></span>
             </div>
         </div> 
-        
         <p>Click the card to see the answer</p>
-        <form>
-            <input type="button" name="newQuestion" class="button" onclick="displayRandomQuestion();" value="New question?">
-        </form>
+
+        <section class="actions">
+            <button id="new-question" class="button" onclick="displayRandomQuestion();">Ready for a new question?</button>
+        </section>
     </main> 
-    <script src="script.js"></script>
+
+        <script src="script.js"></script>
 </body>
 
 </html>
