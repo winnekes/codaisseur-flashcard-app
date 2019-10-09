@@ -1,0 +1,48 @@
+body {
+    /*background: #e6005c;*/
+    
+    font-family: 'Hepta Slab', serif;
+    font-size: 20px;
+}
+
+main {
+    width: 50%;
+    margin: 4rem auto;
+    padding: 2rem;
+
+    text-align: center;
+
+    color: #660029;
+}
+
+main h1 {
+    text-decoration: underline;
+}
+.card {
+    width: 60%;
+    min-height: 200px;
+
+    margin: 1rem auto;
+    padding: 2rem;
+    
+    border-radius: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+
+    background: #e6005c;
+    
+    color: white;
+    font-size: 2.5rem;
+    
+}
+.card .question em {
+    font-weight: bold;
+    color: #660029;
+}
+.card .question {
+    align-self: center;   
+    justify-self: center;
+}
