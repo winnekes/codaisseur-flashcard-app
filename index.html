@@ -27,12 +27,12 @@
             </div>
         </div>
         <section class="actions">
-            <button id="new-question" class="button" onclick="displayRandomQuestion();">Click for a new question</button>
-            <button id="add-question" class="button" onclick="toggleUserQuestionForm();">Click to add your own
-                questions</button>
+            <button id="new-question" class="button" onclick="displayRandomQuestion();">Click for a new flashcard</button>
+            <button id="add-question" class="button" onclick="toggleUserQuestionForm();">Click to add your own flashcard</button>
+            <button id="delete-question" class="button" onclick="deleteQuestion();">Delete current flashcard</button>
         </section>
         <section class="user-question invisible">
-            <h2>Add your question!</h2>
+            <h2>Add your flashcard!</h2>
             <form onsubmit="addFlashcard(this); return false" id="flashcard-form"> 
                 <h4>Question</h4>
                 <textarea rows="5" columns="30" class="question" name="question" placeholder="What is 2 + 2?" required></textarea>

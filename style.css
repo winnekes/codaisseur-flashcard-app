@@ -25,7 +25,7 @@ main p {
 }
 
 button {
-    margin: 0 10px;
+    margin: 10px;
     padding: 1.5rem;
 
     border-radius: 10px;
@@ -83,9 +83,7 @@ button:active {
 
 .card h3 {
     margin-top: 0;
-
     text-decoration: underline;
-    font-size: 1.5rem;
     color: blanchedalmond;
 }
 
@@ -188,4 +186,17 @@ button:active {
 
 .invisible {
     display: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .card {
+        margin: 2rem;
+        font-size: 1rem;
+    }
+
+    .card__face {
+        min-width: 50px;
+        max-width: 95%;
+        min-height: 100px;
+    }
 }
