@@ -1,11 +1,10 @@
-
-// DOM
 const cardElement = document.querySelector('.card');
 const questionElement = document.getElementById('question');
 const answerElement = document.getElementById('answer');
 const newQuestionButton = document.getElementById('new-question');
 const categoryListElement = document.getElementById('category-list');
 const userQuestionFormElement = document.querySelector('.user-question');
+const categoriesOptions = document.getElementById('categories-options');
 
 const categories = ['JS', 'HTML', 'CSS'];
 const questions = [
@@ -65,6 +64,7 @@ const questions = [
         category: 'HTML'
     }
 ];
+
 function displayCategories() {
 
     for(let i = 0; i < categories.length; i++) {
@@ -75,6 +75,11 @@ function displayCategories() {
         
         categoryButton.innerHTML = categories[i];
         categoryListElement.appendChild(categoryButton);
+
+        const categoryOption = document.createElement('option');
+        categoryOption.setAttribute('value', categories[i]);
+        categoryOption.innerText = categories[i];
+        categoriesOptions.appendChild(categoryOption);
     }
 }
 
@@ -106,6 +111,20 @@ function displayRandomQuestion(category=false) {
     userQuestionFormElement.classList.add('invisible');
 }
 
+function addFlashcard(form) {
+    const userQuestion = form.question.value;
+    const userAnswer = form.answer.value;
+    const userCategory = form.category.value;
+
+    const userFlashcard = {
+            question: userQuestion,
+            answer: userAnswer,
+            category: userCategory
+        }
+    
+    questions.push(userFlashcard);
+}
+
 function toggleCard() {
     cardElement.classList.toggle('is-flipped');
 }
@@ -116,14 +135,7 @@ function toggleUserQuestionForm() {
     window.location.href = '#flashcard-form';
 }
 
-function addFlashcard(form){
-
-}
-
-
 displayCategories();
-
-
 // eventListeners
 newQuestionButton.addEventListener('click', displayRandomQuestion());
 cardElement.addEventListener('click', toggleCard);

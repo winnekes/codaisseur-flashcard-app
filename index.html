@@ -35,12 +35,12 @@
             <h2>Add your question!</h2>
             <form onsubmit="addFlashcard(this); return false" id="flashcard-form"> 
                 <h4>Question</h4>
-                <textarea rows="5" columns="30" class="question" name="question" placeholder="What is 2 + 2?"></textarea>
+                <textarea rows="5" columns="30" class="question" name="question" placeholder="What is 2 + 2?" required></textarea>
 
                 <h4>Answer</h4>
-                <textarea rows="5" columns="30" class="answer" name="answer" placeholder="It's 4!"></textarea>
+                <textarea rows="5" columns="30" class="answer" name="answer" placeholder="It's 4!" required></textarea>
                 <h4>Category</h4>
-                <select name="categories">
+                <select name="category" id="categories-options">
                 </select>
                 <input type="submit" class="submit-button" value="Add your flashcard now">
             </form>
