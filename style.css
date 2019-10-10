@@ -1,6 +1,6 @@
 body {
     background: #eeeeee;
-    
+
     font-family: 'Inconsolata', monospace;
     font-size: 16px;
     overflow-y: scroll;
@@ -15,9 +15,11 @@ main {
     text-align: center;
     color: #660029;
 }
+
 main h1 {
     text-decoration: underline;
 }
+
 main p {
     color: darkslategray;
 }
@@ -39,6 +41,7 @@ button {
     font-weight: bold;
     color: white;
 }
+
 button:hover {
     background: #e67300;
 }
@@ -66,9 +69,9 @@ button:active {
     flex-direction: row;
 
     margin: 2rem auto 2rem auto;
-    
+
     cursor: pointer;
-    
+
     text-align: center;
     color: white;
     font-size: 1.5rem;
@@ -77,6 +80,7 @@ button:active {
     transform-style: preserve-3d;
     perspective: 30px;
 }
+
 .card h3 {
     margin-top: 0;
 
@@ -113,7 +117,7 @@ button:active {
 .card__face--front {
     background: #e6005c;
     box-shadow: 5px 5px lightskyblue;
-    
+
 }
 
 .card__face--back {
@@ -122,20 +126,61 @@ button:active {
     transform: rotateY(180deg);
 }
 
-.user-question form {
+.user-question h2 {
+    margin-top: 3rem;
+}
+
+.user-question h4 {
+    text-decoration: underline;
+}
+
+.user-question .user-question form {
     display: flex;
     flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
     justify-content: center;
-    width: 60%;
+    width: 80%;
     margin: 0 auto;
-    text-align: left;
 }
 
 .user-question form textarea {
+    width: 60%;
     padding: 1rem;
     border: 1px solid darkgray;
     background: #F0F0F0;
 }
+
+.user-question form .submit-button {
+    margin: 2rem auto;
+    padding: 1.5rem;
+
+    display: block;
+
+    align-self: center;
+    justify-self: center;
+    border-radius: 10px;
+    border: 0;
+
+    background: #A22442;
+
+    text-decoration: none;
+    outline: none;
+    box-shadow: 2px 2px #DBDBDB;
+    font-family: 'Inconsolata', monospace;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+}
+.user-question form .submit-button:hover {
+    background: #81122C;
+}
+
+.user-question form .submit-button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
 
 .visible {
     display: block;
