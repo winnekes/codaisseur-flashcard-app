@@ -11,13 +11,13 @@ const resetFlashCardsButton = document.getElementById('reset-flashcards');
 
 const categoriesOptions = document.getElementById('categories-options');
 
-let userStorage;
+userStorage = window.localStorage;
 
 let categories = ['JS', 'HTML', 'CSS'];
-let filteredQuestions = [];
 
-let questions = [
-    {
+let questions = []
+
+let questionsData = [{
         id: 1,
         question: 'What is the use of <em>isNaN function</em>?',
         answer: 'isNan function returns true if the argument is not a number otherwise it is false',
@@ -85,32 +85,30 @@ let questions = [
     }
 ];
 
-function checkAndSetLocalUserStorage() {
-    if(userStorage) {
-        questions = JSON.parse(userStorage.getItem('questions'));
-    }
-    else {
-        userStorage = window.localStorage;
-        userStorage.setItem('questions', JSON.stringify(questions));
-    }
+if (userStorage.getItem('questions')) {
+    questions = JSON.parse(userStorage.getItem('questions'));
+} else {
+    questions = questionsData;
+    userStorage.setItem('questions', JSON.stringify(questions));
 }
 
 function clearLocalUserStorage() {
     confirmedClear = confirm("Are you sure you want to delete all the flashcards you added?");
-    if(confirmedClear) {
+    if (confirmedClear) {
         userStorage.clear();
-        jumpToAnchor('top');
+        jumpToAnchor('top')
+        alert('And we\'re back to the standard flashcards!');
     }
 }
 
 function displayCategories() {
 
-    for(let i = 0; i < categories.length; i++) {
+    for (let i = 0; i < categories.length; i++) {
         const categoryButton = document.createElement('button');
         categoryButton.setAttribute('id', 'cat-' + categories[i]);
         categoryButton.setAttribute('onclick', 'displayRandomQuestion(\'' + categories[i] + '\');');
         categoryButton.className = "category";
-        
+
         categoryButton.innerHTML = categories[i];
         categoryListElement.appendChild(categoryButton);
 
@@ -121,11 +119,12 @@ function displayCategories() {
     }
 }
 
-function displayRandomQuestion(category=false) {
+function displayRandomQuestion(category = false) {
     // always show the question side of the card first
     cardElement.classList.remove('is-flipped');
-    
-    if(category){
+
+    if (category) {
+        let filteredQuestions = [];
         newFlashcardButton.setAttribute('onclick', 'displayRandomQuestion(\'' + category + '\')');
 
         for (let i = 0; i < questions.length; i++) {
@@ -133,11 +132,16 @@ function displayRandomQuestion(category=false) {
                 filteredQuestions.push(questions[i]);
             }
         }
-        let randNum = Math.floor(Math.random() * filteredQuestions.length);
-        questionElement.innerHTML = filteredQuestions[randNum].question;
-        answerElement.innerHTML = filteredQuestions[randNum].answer;
-    }
-    else {
+
+        if (filteredQuestions === undefined || filteredQuestions.length == 0) {
+            alert('There are no flashcards in this category. Why don\'t you add some?');
+        } else {
+            let randNum = Math.floor(Math.random() * filteredQuestions.length);
+            questionElement.innerHTML = filteredQuestions[randNum].question;
+            answerElement.innerHTML = filteredQuestions[randNum].answer;
+            deleteFlashcardButton.setAttribute('onclick', 'deleteFlashcard(\'' + filteredQuestions[randNum].id + '\')');
+        }
+    } else {
         let randNum = Math.floor(Math.random() * questions.length);
         questionElement.innerHTML = questions[randNum].question;
         answerElement.innerHTML = questions[randNum].answer;
@@ -145,7 +149,7 @@ function displayRandomQuestion(category=false) {
         deleteFlashcardButton.setAttribute('onclick', 'deleteFlashcard(\'' + questions[randNum].id + '\')');
         newFlashcardButton.setAttribute('onclick', 'displayRandomQuestion()');
     }
-    
+
     userQuestionFormElement.classList.remove('visible');
     userQuestionFormElement.classList.add('invisible');
 }
@@ -154,41 +158,43 @@ function addFlashcard(form) {
     const userQuestion = form.question.value;
     const userAnswer = form.answer.value;
     const userCategory = form.category.value;
-    
+
     const generatedID = questions.length + 1;
 
     const userFlashcard = {
-            id: generatedID,
-            question: userQuestion,
-            answer: userAnswer,
-            category: userCategory
-        }
-    
+        id: generatedID,
+        question: userQuestion,
+        answer: userAnswer,
+        category: userCategory
+    }
+
     questions.push(userFlashcard);
-    
+
     userStorage.setItem('questions', JSON.stringify(questions));
 
     alert('You added a new flashcard!');
-    
+
     userQuestionFormElement.classList.remove('visible');
     userQuestionFormElement.classList.add('invisible');
     jumpToAnchor('top');
 }
+
 function deleteFlashcard(flashcardID) {
 
     const confirmedDelete = confirm("Are you sure you want to delete the current flashcard?");
-    if(confirmedDelete) {
+    if (confirmedDelete) {
 
-    for (let i = 0; i < questions.length; i++)
+        for (let i = 0; i < questions.length; i++)
 
-        if (questions[i].id == flashcardID) {
-            questions.splice(i, 1);
-            displayRandomQuestion();
-            alert("The flashcard was deleted!")
-            break;
-        }
+            if (questions[i].id == flashcardID) {
+                questions.splice(i, 1);
+                displayRandomQuestion();
+                alert("The flashcard was deleted!");
+                userStorage.setItem('questions', JSON.stringify(questions));
+                break;
+            }
     }
-    userStorage.setItem('questions', JSON.stringify(questions));
+
 
     jumpToAnchor('top');
 }
