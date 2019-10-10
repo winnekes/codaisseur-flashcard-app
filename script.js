@@ -4,15 +4,18 @@ const answerElement = document.getElementById('answer');
 const categoryListElement = document.getElementById('category-list');
 const userQuestionFormElement = document.querySelector('.user-question');
 
-const newQuestionButton = document.getElementById('new-question');
-const deleteQuestionButton = document.getElementById('delete-question');
-const addQuestionButton = document.getElementById('add-question');
+const newFlashcardButton = document.getElementById('new-flashcard');
+const deleteFlashcardButton = document.getElementById('delete-flashcard');
+const addFlashcardButton = document.getElementById('add-flashcard');
+const resetFlashCardsButton = document.getElementById('reset-flashcards');
 
 const categoriesOptions = document.getElementById('categories-options');
 
+let userStorage;
 
 let categories = ['JS', 'HTML', 'CSS'];
 let filteredQuestions = [];
+
 let questions = [
     {
         id: 1,
@@ -82,6 +85,24 @@ let questions = [
     }
 ];
 
+function checkAndSetLocalUserStorage() {
+    if(userStorage) {
+        questions = JSON.parse(userStorage.getItem('questions'));
+    }
+    else {
+        userStorage = window.localStorage;
+        userStorage.setItem('questions', JSON.stringify(questions));
+    }
+}
+
+function clearLocalUserStorage() {
+    confirmedClear = confirm("Are you sure you want to delete all the flashcards you added?");
+    if(confirmedClear) {
+        userStorage.clear();
+        jumpToAnchor('top');
+    }
+}
+
 function displayCategories() {
 
     for(let i = 0; i < categories.length; i++) {
@@ -100,32 +121,13 @@ function displayCategories() {
     }
 }
 
-function deleteFlashcard(flashcardID) {
-
-    const confirmedDelete = confirm("Are you sure you want to delete the current flashcard?");
-    if(confirmedDelete) {
-
-    for (let i = 0; i < questions.length; i++)
-
-        if (questions[i].id == flashcardID) {
-            questions.splice(i, 1);
-            displayRandomQuestion();
-            alert("The flashcard was deleted!")
-            break;
-        }
-    }
-
-    console.log(questions);
-}
-
 function displayRandomQuestion(category=false) {
     // always show the question side of the card first
     cardElement.classList.remove('is-flipped');
     
     if(category){
-        newQuestionButton.setAttribute('onclick', 'displayRandomQuestion(\'' + category + '\')');
+        newFlashcardButton.setAttribute('onclick', 'displayRandomQuestion(\'' + category + '\')');
 
-        let filteredQuestions = [];
         for (let i = 0; i < questions.length; i++) {
             if (questions[i].category === category) {
                 filteredQuestions.push(questions[i]);
@@ -140,8 +142,8 @@ function displayRandomQuestion(category=false) {
         questionElement.innerHTML = questions[randNum].question;
         answerElement.innerHTML = questions[randNum].answer;
 
-        deleteQuestionButton.setAttribute('onclick', 'deleteFlashcard(\'' + questions[randNum].id + '\')');
-        newQuestionButton.setAttribute('onclick', 'displayRandomQuestion()');
+        deleteFlashcardButton.setAttribute('onclick', 'deleteFlashcard(\'' + questions[randNum].id + '\')');
+        newFlashcardButton.setAttribute('onclick', 'displayRandomQuestion()');
     }
     
     userQuestionFormElement.classList.remove('visible');
@@ -163,7 +165,32 @@ function addFlashcard(form) {
         }
     
     questions.push(userFlashcard);
-    console.log(userFlashcard);
+    
+    userStorage.setItem('questions', JSON.stringify(questions));
+
+    alert('You added a new flashcard!');
+    
+    userQuestionFormElement.classList.remove('visible');
+    userQuestionFormElement.classList.add('invisible');
+    jumpToAnchor('top');
+}
+function deleteFlashcard(flashcardID) {
+
+    const confirmedDelete = confirm("Are you sure you want to delete the current flashcard?");
+    if(confirmedDelete) {
+
+    for (let i = 0; i < questions.length; i++)
+
+        if (questions[i].id == flashcardID) {
+            questions.splice(i, 1);
+            displayRandomQuestion();
+            alert("The flashcard was deleted!")
+            break;
+        }
+    }
+    userStorage.setItem('questions', JSON.stringify(questions));
+
+    jumpToAnchor('top');
 }
 
 function toggleCard() {
@@ -173,10 +200,17 @@ function toggleCard() {
 function toggleUserQuestionForm() {
     userQuestionFormElement.classList.add('visible');
     userQuestionFormElement.classList.remove('invisible');
-    window.location.href = '#flashcard-form';
+
+    jumpToAnchor('flashcard-form');
+}
+
+function jumpToAnchor(anchor) {
+    window.location.href = '#' + anchor;
 }
 
 displayCategories();
-// eventListeners
-newQuestionButton.addEventListener('click', displayRandomQuestion());
+
 cardElement.addEventListener('click', toggleCard);
+addFlashcardButton.addEventListener('click', toggleUserQuestionForm);
+newFlashcardButton.addEventListener('click', displayRandomQuestion());
+resetFlashCardsButton.addEventListener('click', clearLocalUserStorage);

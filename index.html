@@ -10,8 +10,8 @@
     <title>Test yo self!</title>
 </head>
 
-<body onload="displayRandomQuestion();">
-    <main>
+<body onload="checkAndSetLocalUserStorage()">
+    <main id="top">
         <h1>Flashcards</h1>
         <h2>Test yo' self!</h2>
         <p>Test your knowledge with this awesome flashcard app!<br />
@@ -27,9 +27,10 @@
             </div>
         </div>
         <section class="actions">
-            <button id="new-question" class="button" onclick="displayRandomQuestion();">Click for a new flashcard</button>
-            <button id="add-question" class="button" onclick="toggleUserQuestionForm();">Click to add your own flashcard</button>
-            <button id="delete-question" class="button" onclick="deleteQuestion();">Delete current flashcard</button>
+            <button id="new-flashcard" class="button">Click for a new flashcard</button>
+            <button id="add-flashcard" class="button">Click to add your own flashcard</button>
+            <button id="delete-flashcard" class="button">Delete current flashcard</button>
+            <button id="reset-flashcards" class="button">Reset flashcards (delete your saved questions)</button>
         </section>
         <section class="user-question invisible">
             <h2>Add your flashcard!</h2>
