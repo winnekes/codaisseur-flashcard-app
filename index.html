@@ -26,13 +26,26 @@
                 <span id="answer"></span>
             </div>
         </div>
-        <h3>Categories</h3>
+        <section class="actions">
+            <button id="new-question" class="button" onclick="displayRandomQuestion();">Click for a new question</button>
+            <button id="add-question" class="button" onclick="toggleUserQuestionForm();">Click to add your own
+                questions</button>
+        </section>
         <section id="category-list" class="navigation">
+            <h3>Pick a category</h3>
             <button id="cat-all" onclick="filterCategory()">All topics</button>
         </section>
-        <section class="actions">
-            <button id="new-question" class="button" onclick="displayRandomQuestion();">Ready for a new
-                question?</button>
+
+        <section class="user-question invisible">
+            <form>
+                <h4>Question</h4>
+                <textarea rows="5" columns="20" class="question" name="question" placeholder="What is 2 + 2?"></textarea>
+
+                <h4>Answer</h4>
+                 <textarea rows="5" columns="20" class="answer" name="answer" placeholder="It's 4!"></textarea>
+
+                <input type="submit" value="Add your question/answer card">
+            </form>
         </section>
     </main>
 

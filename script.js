@@ -5,6 +5,7 @@ const questionElement = document.getElementById('question');
 const answerElement = document.getElementById('answer');
 const newQuestionButton = document.getElementById('new-question');
 const categoryListElement = document.getElementById('category-list');
+const userQuestionFormElement = document.querySelector('.user-question');
 
 const categories = ['JavaScript', 'HTML', 'CSS'];
 const questions = [
@@ -52,6 +53,16 @@ const questions = [
         question: 'What does CSS stand for?',
         answer: 'Cascading Style Sheets',
         category: [categories[2]]
+    },
+    {
+        question: 'What is HTML?',
+        answer: 'HTML stands for Hyper Text Markup Language. It is a language of World Wide Web. It is a standard text formatting language which is used to create and display pages on the Web. It makes the text more interactive and dynamic. It can turn text into images, tables, links.',
+        category: [categories[1]]
+    },
+    {
+        question: 'What is the use of Canvas element?',
+        answer: 'The canvas element helps to build charts, graphs, bypass Photoshop to create 2D images and place them directly into HTML5 code',
+        category: [categories[1]]
     }
 ];
 function displayCategories() {
@@ -84,8 +95,13 @@ function toggleCard() {
     cardElement.classList.toggle('is-flipped');
 }
 
-function filterByCategory() {
+/* function filterByCategory() {
 
+}
+ */
+
+function toggleUserQuestionForm() {
+    userQuestionFormElement.classList.toggle('invisible');
 }
 
 displayCategories();

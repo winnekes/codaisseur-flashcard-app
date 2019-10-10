@@ -31,6 +31,7 @@ button {
 
     text-decoration: none;
     outline: none;
+    box-shadow: 2px 2px #DBDBDB;
     font-family: 'Inconsolata', monospace;
     font-size: 1rem;
     font-weight: bold;
@@ -47,11 +48,11 @@ button:active {
 
 .navigation button {
     font-size: .8rem;
-    background-color: blue;
+    background: #2B56A2;
 }
 
 .navigation button:hover {
-    background: purple;
+    background: #13336B;
 }
 
 .card {
@@ -62,7 +63,7 @@ button:active {
     justify-content: center;
     flex-direction: row;
 
-    margin: 0 auto;
+    margin: 2rem auto 2rem auto;
     
     cursor: pointer;
     
@@ -117,4 +118,27 @@ button:active {
     background: green;
     box-shadow: 5px 5px lightpink;
     transform: rotateY(180deg);
+}
+
+.user-question form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 60%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.user-question form textarea {
+    padding: 1rem;
+    border: 1px solid darkgray;
+    background: #F0F0F0;
+}
+
+.visible {
+    display: block;
+}
+
+.invisible {
+    display: none;
 }
