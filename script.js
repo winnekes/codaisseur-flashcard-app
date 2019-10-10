@@ -89,6 +89,9 @@ function displayRandomQuestion() {
     
     questionElement.innerHTML = questions[randNum].question;
     answerElement.innerHTML = questions[randNum].answer;
+
+    userQuestionFormElement.classList.remove('visible');
+    userQuestionFormElement.classList.add('invisible');
 }
 
 function toggleCard() {
@@ -101,7 +104,8 @@ function toggleCard() {
  */
 
 function toggleUserQuestionForm() {
-    userQuestionFormElement.classList.toggle('invisible');
+    userQuestionFormElement.classList.add('visible');
+    userQuestionFormElement.classList.remove('invisible');
 }
 
 displayCategories();
