@@ -1,8 +1,10 @@
+// Get necessary DOM elements
+
 const cardElement = document.querySelector('.card');
 const questionElement = document.getElementById('question');
 const answerElement = document.getElementById('answer');
 const categoryListElement = document.getElementById('category-list');
-const userQuestionFormElement = document.querySelector('.user-question');
+const userFlashcardFormElement = document.querySelector('.user-flashcard-form');
 
 const newFlashcardButton = document.getElementById('new-flashcard');
 const deleteFlashcardButton = document.getElementById('delete-flashcard');
@@ -11,7 +13,11 @@ const resetFlashCardsButton = document.getElementById('reset-flashcards');
 
 const categoriesOptions = document.getElementById('categories-options');
 
+
+// setting the local storage
 userStorage = window.localStorage;
+
+// defining questions and categories
 
 let categories = ['JS', 'HTML', 'CSS'];
 
@@ -85,6 +91,8 @@ let questionsData = [{
     }
 ];
 
+
+// check if localStorage exists: if so get saved user questions, otherwise get data from API
 if (userStorage.getItem('questions')) {
     questions = JSON.parse(userStorage.getItem('questions'));
 } else {
@@ -92,6 +100,8 @@ if (userStorage.getItem('questions')) {
     userStorage.setItem('questions', JSON.stringify(questions));
 }
 
+
+// empty localStorage
 function clearLocalUserStorage() {
     confirmedClear = confirm("Are you sure you want to delete all the flashcards you added?");
     if (confirmedClear) {
@@ -101,6 +111,8 @@ function clearLocalUserStorage() {
     }
 }
 
+
+// display categories dynamically 
 function displayCategories() {
 
     for (let i = 0; i < categories.length; i++) {
@@ -119,7 +131,8 @@ function displayCategories() {
     }
 }
 
-function displayRandomQuestion(category = false) {
+// display a random card 
+function displayRandomFlashcard(category=false) {
     // always show the question side of the card first
     cardElement.classList.remove('is-flipped');
 
@@ -150,14 +163,14 @@ function displayRandomQuestion(category = false) {
         newFlashcardButton.setAttribute('onclick', 'displayRandomQuestion()');
     }
 
-    userQuestionFormElement.classList.remove('visible');
-    userQuestionFormElement.classList.add('invisible');
+    userFlashcardFormElement.classList.remove('visible');
+    userFlashcardFormElement.classList.add('invisible');
 }
 
-function addFlashcard(form) {
-    const userQuestion = form.question.value;
-    const userAnswer = form.answer.value;
-    const userCategory = form.category.value;
+function addFlashcard(formData) {
+    const userQuestion = formData.question.value;
+    const userAnswer = formData.answer.value;
+    const userCategory = formData.category.value;
 
     const generatedID = questions.length + 1;
 
@@ -174,8 +187,8 @@ function addFlashcard(form) {
 
     alert('You added a new flashcard!');
 
-    userQuestionFormElement.classList.remove('visible');
-    userQuestionFormElement.classList.add('invisible');
+    userFlashcardFormElement.classList.remove('visible');
+    userFlashcardFormElement.classList.add('invisible');
     jumpToAnchor('top');
 }
 
@@ -188,7 +201,7 @@ function deleteFlashcard(flashcardID) {
 
             if (questions[i].id == flashcardID) {
                 questions.splice(i, 1);
-                displayRandomQuestion();
+                displayRandomFlashcard();
                 alert("The flashcard was deleted!");
                 userStorage.setItem('questions', JSON.stringify(questions));
                 break;
@@ -199,13 +212,13 @@ function deleteFlashcard(flashcardID) {
     jumpToAnchor('top');
 }
 
-function toggleCard() {
+function toggleFlashcard() {
     cardElement.classList.toggle('is-flipped');
 }
 
-function toggleUserQuestionForm() {
-    userQuestionFormElement.classList.add('visible');
-    userQuestionFormElement.classList.remove('invisible');
+function toggleUserFlashcardForm() {
+    userFlashcardFormElement.classList.add('visible');
+    userFlashcardFormElement.classList.remove('invisible');
 
     jumpToAnchor('flashcard-form');
 }
@@ -216,7 +229,7 @@ function jumpToAnchor(anchor) {
 
 displayCategories();
 
-cardElement.addEventListener('click', toggleCard);
-addFlashcardButton.addEventListener('click', toggleUserQuestionForm);
-newFlashcardButton.addEventListener('click', displayRandomQuestion());
+cardElement.addEventListener('click', toggleFlashcard);
+addFlashcardButton.addEventListener('click', toggleUserFlashcardForm);
+newFlashcardButton.addEventListener('click', displayRandomFlashcard());
 resetFlashCardsButton.addEventListener('click', clearLocalUserStorage);
