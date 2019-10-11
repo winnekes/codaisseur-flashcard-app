@@ -85,8 +85,9 @@ let questionsData = [{
     }
 ];
 
-if (userStorage.getItem('questions') === !null) {
+if (userStorage.getItem('questions') !== null) {
     questions = JSON.parse(userStorage.getItem('questions'));
+    onloadFunctions();
 } else {
     /*     questions = questionsData;
         userStorage.setItem('questions', JSON.stringify(questions)); */
@@ -96,7 +97,6 @@ if (userStorage.getItem('questions') === !null) {
             return response.json()
         })
         .then(data => {
-            console.log(data)
             userStorage.setItem('questions', JSON.stringify(data));
             questions = JSON.parse(userStorage.getItem('questions'));
 
