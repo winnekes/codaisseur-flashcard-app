@@ -21,7 +21,7 @@ userStorage = window.localStorage;
 
 let categories = ['JS', 'HTML', 'CSS'];
 
-let questions = []
+let questions = JSON.parse(userStorage.getItem('questions')) || "";
 
 let questionsData = [{
         id: 1,
@@ -91,13 +91,40 @@ let questionsData = [{
     }
 ];
 
-
-// check if localStorage exists: if so get saved user questions, otherwise get data from API
-if (userStorage.getItem('questions')) {
+if (userStorage.getItem('questions') !== null) {
     questions = JSON.parse(userStorage.getItem('questions'));
+    onloadFunctions();
 } else {
-    questions = questionsData;
-    userStorage.setItem('questions', JSON.stringify(questions));
+    /*     questions = questionsData;
+        userStorage.setItem('questions', JSON.stringify(questions)); */
+
+    fetch('https://api.jsonbin.io/b/5d9f38a09fb3a828d4a68667')
+        .then(response => {
+            return response.json()
+        })
+        .then(data => {
+            userStorage.setItem('questions', JSON.stringify(data));
+            questions = JSON.parse(userStorage.getItem('questions'));
+
+            onloadFunctions();
+        })
+        .catch(err => {
+            alert("Cannot use the Flashcard API - falling back to local data");
+            console.log(err);
+
+            questions = questionsData;
+            onloadFunctions();
+        })
+}
+
+function onloadFunctions() {
+    displayCategories();
+    displayRandomQuestion();
+
+    cardElement.addEventListener('click', toggleCard);
+    addFlashcardButton.addEventListener('click', toggleUserQuestionForm);
+    newFlashcardButton.addEventListener('click', () => displayRandomQuestion(''));
+    resetFlashCardsButton.addEventListener('click', clearLocalUserStorage);
 }
 
 
@@ -226,10 +253,3 @@ function toggleUserFlashcardForm() {
 function jumpToAnchor(anchor) {
     window.location.href = '#' + anchor;
 }
-
-displayCategories();
-
-cardElement.addEventListener('click', toggleFlashcard);
-addFlashcardButton.addEventListener('click', toggleUserFlashcardForm);
-newFlashcardButton.addEventListener('click', displayRandomFlashcard());
-resetFlashCardsButton.addEventListener('click', clearLocalUserStorage);
